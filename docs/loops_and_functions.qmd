@@ -1,0 +1,70 @@
+---
+title: "Day 4 EOD"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+# For loops revisited
+## Task 1
+```{r}
+weekdays <- c("Mondays", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+transects <- c("Transect A", "Transect B", "Transect C")
+out_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+for (i in seq_along(weekdays)) {
+  for (j in seq_along(transects)) {
+    weekday_trans <- paste(weekdays[i], "-", transects[j])
+    out_matrix[i,j] <- weekday_trans
+  }
+}
+```
+
+# Functions introduced
+## Task 2
+```{r}
+force <- function(mass, acceleration) {
+  force_ans <- mass * acceleration
+  print(paste("The resulting force is", force_ans, "Newtons"))
+}
+force(10,2)
+```
+
+## Task 3
+```{r}
+fish_parms <- data.frame(sci_name = c("Chanos chanos", 
+                                      "Sphyraena barracuda",
+                                      "Caranx ignobilis"),
+                         common_name = c("Milkfish",
+                                         "Great barracuda",
+                                         "Giant trevally"),
+                         a_est = c(0.0905,
+                                   0.0181,
+                                   0.0353),
+                         b_est = c(2.52,
+                                   3.27,
+                                   3.05))
+
+fish_weight <- function(fish_name, tot_length) {
+    my_sub <- fish_parms %>%
+      dplyr::filter(common_name == fish_name)
+    weight <- my_sub$a_est*tot_length*exp(my_sub$b_est)
+    print(weight)
+}
+fish_weight("Milkfish", 20)
+
+length_vec <- seq(from = 0, to = 100, by = 1)
+milkfish_weights <- fish_weight("Milkfish", length_vec)
+
+```
+
+## Task 4
+```{r}
+
+```
+
